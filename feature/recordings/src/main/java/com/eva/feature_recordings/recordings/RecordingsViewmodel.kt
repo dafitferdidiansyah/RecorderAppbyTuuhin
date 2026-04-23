@@ -40,6 +40,8 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import androidx.work.*
+import com.eva.worker.GeminiSummaryWorker
 
 @HiltViewModel
 internal class RecordingsViewmodel @Inject constructor(
@@ -278,5 +280,30 @@ internal class RecordingsViewmodel @Inject constructor(
 
 			else -> {}
 		}
+	}
+
+
+
+	fun startAiConversion(recordingId: Long, filePath: String) {
+		val workRequest = OneTimeWorkRequestBuilder<GeminiSummaryWorker>()
+			.setInputData(
+				workDataOf(
+					"RECORDING_ID" to recordingId,
+					"FILE_PATH" to filePath
+				)
+			)
+			.setConstraints(
+				Constraints.Builder()
+					.setRequiredNetworkType(NetworkType.CONNECTED) // Jalan cuma pas ada internet
+					.build()
+			)
+			.build()
+
+		WorkManager.getInstance(getApplication())
+			.enqueueUniqueWork(
+				"ai_summary_$recordingId",
+				ExistingWorkPolicy.KEEP,
+				workRequest
+			)
 	}
 }

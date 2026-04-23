@@ -27,6 +27,7 @@ dependencies {
 	implementation(project(":data:recordings"))
 	implementation(project(":data:use_case"))
 	implementation(project(":data:interactions"))
+	implementation("com.google.ai.client.generativeai:generativeai:0.9.0")
 
 	implementation(project(":feature:categories"))
 }
