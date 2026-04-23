@@ -1,0 +1,52 @@
+pluginManagement {
+	includeBuild("build-logic")
+	repositories {
+		google {
+			content {
+				includeGroupByRegex("com\\.android.*")
+				includeGroupByRegex("com\\.google.*")
+				includeGroupByRegex("androidx.*")
+			}
+		}
+		mavenCentral()
+		gradlePluginPortal()
+	}
+}
+plugins {
+    id("org.gradle.toolchains.foojay-resolver-convention") version "0.10.0"
+}
+dependencyResolutionManagement {
+	repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+	repositories {
+		google()
+		mavenCentral()
+	}
+}
+
+rootProject.name = "RecorderApp"
+include(":app")
+include(":data:interactions")
+include(":data:location")
+include(":core:utils")
+include(":data:datastore")
+include(":data:database")
+include(":data:player")
+include(":data:recordings")
+include(":data:recorder")
+include(":data:worker")
+include(":data:bookmarks")
+include(":data:categories")
+include(":data:use_case")
+include(":feature:recorder")
+include(":core:ui")
+include(":feature:settings")
+include(":feature:categories")
+include(":feature:recordings")
+include(":feature:player")
+include(":feature:widget")
+include(":feature:editor")
+include(":data:editor")
+include(":feature:player-shared")
+include(":feature:onboarding")
+include(":testing:runtime")
+include(":data:visualizer")
